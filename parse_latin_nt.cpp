@@ -34,17 +34,17 @@ void adjust_suffix()
 
 void adjust_psp()
 {
-    map<string,string> a2b {
+    map<string,string> trans {
       { "A-" , "adjective" },
       { "Df" , "adverb" },
-//      { "S-" , "article" },
+//    { "S-" , "article" },
       { "Ma" , "cardinal_numeral" },
       { "Nb" , "noun" },
       { "C-" , "conjunction" },
       { "Pd" , "demonstrative_pronoun" },
       { "F-" , "foreign_word" },
       { "Px" , "indefinite_pronoun" },
-//      { "N-" , "infinitive_marker" },
+//    { "N-" , "infinitive_marker" },
       { "I-" , "interjection" },
       { "Du" , "interrogative_adverb" },
       { "Pi" , "interrogative_pronoun" },
@@ -55,55 +55,50 @@ void adjust_psp()
       { "Pt" , "possessive_reflexive_pronoun" },
       { "R-" , "preposition" },
       { "Ne" , "proper_noun" },
-//      { "Py" , "quantifier" },
+//    { "Py" , "quantifier" },
       { "Pc" , "reciprocal_pronoun" },
       { "Dq" , "relative_adverb" },
       { "Pr" , "relative_pronoun" },
       { "G-" , "subjunction" },
       { "V-" , "verb" },
-//      { "X-" , "NA" }
+//    { "X-" , "NA" }
     };
 
-//    map<string,int> used {
-//      { "A-" , 0 },
-//      { "Df" , 0 },
-//      { "S-" , 0 },
-//      { "Ma" , 0 },
-//      { "Nb" , 0 },
-//      { "C-" , 0 },
-//      { "Pd" , 0 },
-//      { "F-" , 0 },
-//      { "Px" , 0 },
-//      { "N-" , 0 },
-//      { "I-" , 0 },
-//      { "Du" , 0 },
-//      { "Pi" , 0 },
-//      { "Mo" , 0 },
-//      { "Pp" , 0 },
-//      { "Pk" , 0 },
-//      { "Ps" , 0 },
-//      { "Pt" , 0 },
-//      { "R-" , 0 },
-//      { "Ne" , 0 },
-//      { "Py" , 0 },
-//      { "Pc" , 0 },
-//      { "Dq" , 0 },
-//      { "Pr" , 0 },
-//      { "G-" , 0 },
-//      { "V-" , 0 },
-//      { "X-" , 0 },
-//    };
 
-    for (word& w : words) {
-        assert(a2b.contains(w.part_of_speech()));
-        string newpsp = a2b[w.part_of_speech()];
-//        ++used[w.part_of_speech()];
-        w.part_of_speech(newpsp);
-    }
-
-//    for (auto x : used)
-//        cout << x.first << ":" << x.second << "\n";
+    for (word& w : words)
+        w.part_of_speech(trans.at(w.part_of_speech()));
 }
+
+void adjust_morphology()
+{
+    map<char,string> person_trans{
+        { '1', "first_person" },
+        { '2', "second_person" },
+        { '3', "third_person" },
+//      { 'x', "uncertain_person" }
+    };
+
+    map<char,string> number_trans{
+        { 's', "singular" },
+//      { 'd', "dual" },
+        { 'p', "plural" },
+//      { 'x', "uncertain_number" }
+    };
+
+
+    array features{"person"s, "number"s};
+    array transtable{&person_trans, &number_trans};
+    
+    for (word& w : words) {
+        string morphology = w.morphology();
+
+        for (int n=0; n<2; ++n) {
+            if (morphology[n]!='-')
+                w.morph(features[n], transtable[n]->at(morphology[n]));
+        }
+    }
+}
+
 
 tuple<string,int,int> split_ref(const string& ref)
 {
@@ -201,7 +196,8 @@ int main()
     adjust_suffix();
     adjust_bcv();
     adjust_psp();
-
+    adjust_morphology();
+    
     mql mql_file{"jvulgate.mql"};
 
     mql_file.head();

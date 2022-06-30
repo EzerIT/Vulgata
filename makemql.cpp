@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "makemql.hpp"
 
 
@@ -44,6 +45,21 @@ void mql::enums()
        << "  relative_pronoun             = 21,\n"
        << "  subjunction                  = 22,\n"
        << "  verb                         = 23\n"
+       << "}\n"
+       << "GO\n"
+       << "\n"
+       << "CREATE ENUMERATION person_t = {\n"
+       << "  DEFAULT NA    = 1,\n"
+       << "  first_person  = 2,\n"
+       << "  second_person = 3,\n"
+       << "  third_person  = 4\n"
+       << "}\n"
+       << "GO\n"
+       << "\n"
+       << "CREATE ENUMERATION number_t = {\n"
+       << "  DEFAULT NA = 1,\n"
+       << "  singular   = 2,\n"
+       << "  plural     = 3\n"
        << "}\n"
        << "GO\n"
        << "\n";
@@ -96,10 +112,10 @@ void mql::types()
        << "  surface : string FROM SET  DEFAULT \"\";\n"
        << "  lemma : string FROM SET  WITH INDEX  DEFAULT \"\";\n"
        << "  psp : psp_t;\n"
+       << "  person : person_t DEFAULT NA;\n"
+       << "  number : number_t DEFAULT NA;\n"
 //       << "  case : case_t DEFAULT NA;\n"
-//       << "  number : number_t DEFAULT NA;\n"
 //       << "  gender : gender_t DEFAULT NA;\n"
-//       << "  person : person_t DEFAULT NA;\n"
 //       << "  tense : tense_t DEFAULT NA;\n"
 //       << "  voice : voice_t DEFAULT NA;\n"
 //       << "  mood : mood_t DEFAULT NA;\n"
@@ -137,8 +153,17 @@ void mql::make_word(const word& w)
        << "surface:=\"" << w.form() << "\";\n"
        << "lemma:=\"" << w.lemma() << "\";\n"
        << "suffix:=\"" << w.suffix() << "\";\n"
-       << "psp:=" << w.part_of_speech() << ";\n"
-       << "]\n";
+       << "psp:=" << w.part_of_speech() << ";\n";
+
+
+    for (const string& key : {"person", "number"}) {
+        string val = w.morph(key);
+
+        if (val!="")
+            os << key << ":=" << val << ";\n";
+    }
+
+    os << "]\n";
 }
 
 void mql::make_sentence(const sentence& s)

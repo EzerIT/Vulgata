@@ -1,0 +1,8 @@
+*#
+*~
+*.o
+*.d
+parse_latin_nt
+jvulgate
+jvulgate.mql
+dont_git

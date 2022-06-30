@@ -2,6 +2,7 @@
 #define _PARSE_LATIN_NT_HPP_
 
 #include <string>
+#include <map>
 
 class word {
   public:
@@ -35,6 +36,9 @@ class word {
     std::string suffix()        const { return m_suffix; }
     void suffix(const std::string& s) { m_suffix = s; }
 
+    std::string morph(const std::string& feature) const { return m_morphmap.contains(feature) ? m_morphmap.at(feature) : ""; }
+    void morph(const std::string& feature, const std::string& value) { m_morphmap[feature] = value; }
+
     long monad()                const { return m_monad; }
 
     static long last_monad;
@@ -50,6 +54,8 @@ class word {
 
     std::string m_suffix;
 
+    std::map<std::string,std::string> m_morphmap;
+    
     long m_monad;
 };
 
