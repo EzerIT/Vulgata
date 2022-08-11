@@ -18,58 +18,76 @@ void mql::head()
        << "\n";
 }
 
-
-void mql::enums()
+void mql::list_enum(const string& name, const initializer_list<string>& il, bool first_is_default)
 {
-    os << "CREATE ENUMERATION psp_t = {\n"
-       << "  adjective                    =  1,\n"
-       << "  adverb                       =  2,\n"
-       << "  cardinal_numeral             =  3,\n"
-       << "  conjunction                  =  4,\n"
-       << "  demonstrative_pronoun        =  5,\n"
-       << "  foreign_word                 =  6,\n"
-       << "  indefinite_pronoun           =  7,\n"
-       << "  interjection                 =  8,\n"
-       << "  interrogative_adverb         =  9,\n"
-       << "  interrogative_pronoun        = 10,\n"
-       << "  noun                         = 11,\n"
-       << "  ordinal_numeral              = 12,\n"
-       << "  personal_pronoun             = 13,\n"
-       << "  personal_reflexive_pronoun   = 14,\n"
-       << "  possessive_pronoun           = 15,\n"
-       << "  possessive_reflexive_pronoun = 16,\n"
-       << "  preposition                  = 17,\n"
-       << "  proper_noun                  = 18,\n"
-       << "  reciprocal_pronoun           = 19,\n"
-       << "  relative_adverb              = 20,\n"
-       << "  relative_pronoun             = 21,\n"
-       << "  subjunction                  = 22,\n"
-       << "  verb                         = 23\n"
-       << "}\n"
-       << "GO\n"
-       << "\n"
-       << "CREATE ENUMERATION person_t = {\n"
-       << "  DEFAULT NA    = 1,\n"
-       << "  first_person  = 2,\n"
-       << "  second_person = 3,\n"
-       << "  third_person  = 4\n"
-       << "}\n"
-       << "GO\n"
-       << "\n"
-       << "CREATE ENUMERATION number_t = {\n"
-       << "  DEFAULT NA = 1,\n"
-       << "  singular   = 2,\n"
-       << "  plural     = 3\n"
-       << "}\n"
+    os << "CREATE ENUMERATION " << name << " = {\n";
+
+    bool first = first_is_default;
+    int num = 0;
+    
+    for (const string& s : il) {
+        os << "  " << (first ? "DEFAULT " : "") << s << " = " << ++num << (s != *(il.end()-1) ? ",\n" : "\n");
+        first = false;
+    }
+        
+    os << "}\n"
        << "GO\n"
        << "\n";
+}
+ 
+void mql::enums()
+{
+    list_enum("book_name_t",
+              { "Matthew", "Mark", "Luke", "John", "Acts", "Romans",
+                "I_Corinthians", "II_Corinthians", "Galatians", "Ephesians", "Philippians",
+                "Colossians", "I_Thessalonians", "II_Thessalonians", "I_Timothy", "II_Timothy",
+                "Titus", "Philemon", "Hebrews", "James", "I_Peter", "II_Peter",
+                "I_John", "II_John", "III_John", "Jude", "Revelation" },
+              false);
+    
+    list_enum("psp_t",
+              { "adjective", "adverb", "cardinal_numeral", "conjunction", "demonstrative_pronoun", "foreign_word",
+                "indefinite_pronoun", "interjection", "interrogative_adverb", "interrogative_pronoun", "noun",
+                "ordinal_numeral", "personal_pronoun", "personal_reflexive_pronoun", "possessive_pronoun",
+                "possessive_reflexive_pronoun", "preposition", "proper_noun", "reciprocal_pronoun",
+                "relative_adverb", "relative_pronoun", "subjunction", "verb" },
+              false);
+
+    list_enum("person_t",{ "NA", "first_person", "second_person", "third_person" });
+    list_enum("number_t",{ "NA", "singular", "plural" });
+    list_enum("tense_t", { "NA", "future", "future_perfect", "imperfect", "perfect", "pluperfect", "present" });
+    list_enum("mood_t",  { "NA", "indicative", "subjunctive", "imperative", "infinitive", "participle", "gerund", "gerundive", "supine"});
+    list_enum("voice_t", { "NA", "active", "passive" });
+    list_enum("gender_t",{ "NA", "masculine", "feminine", "neuter", "masculine_or_feminine", "masculine_or_neuter", "feminine_or_neuter", "masculine_or_feminine_or_neuter" });
+    list_enum("case_t",  { "NA", "nominative", "accusative", "genitive", "dative", "ablative", "vocative" });
+    list_enum("degree_t",{ "NA", "positive", "comparative", "superlative" });
+    list_enum("inflection_t", { "non_inflecting", "inflecting" }, false);
 }
 
 void mql::types()
 {
-    os << "// Object type sentence\n"
+    os << "// Object type word\n"
        << "CREATE OBJECT TYPE\n"
-       << "[sentence\n"
+       << "[word\n"
+       << "  frequency_rank : integer DEFAULT 99999;\n"
+       << "  lexeme_occurrences : integer DEFAULT 0;\n"
+       << "  ref : string DEFAULT \"\";\n"
+       << "  surface : string FROM SET DEFAULT \"\";\n"
+       << "  suffix : string FROM SET  DEFAULT \"\";\n"
+       << "  normalized : string FROM SET DEFAULT \"\";\n"
+       << "  lemma : string FROM SET WITH INDEX DEFAULT \"\";\n"
+       << "  lemma_variant : integer DEFAULT 0;\n"
+       << "  lemma_with_variant : string FROM SET WITH INDEX DEFAULT \"\";\n"
+       << "  psp : psp_t;\n"
+       << "  person : person_t DEFAULT NA;\n"
+       << "  number : number_t DEFAULT NA;\n"
+       << "  case : case_t DEFAULT NA;\n"
+       << "  gender : gender_t DEFAULT NA;\n"
+       << "  tense : tense_t DEFAULT NA;\n"
+       << "  voice : voice_t DEFAULT NA;\n"
+       << "  mood : mood_t DEFAULT NA;\n"
+       << "  degree : degree_t DEFAULT NA;\n"
+       << "  inflection : inflection_t;\n"
        << "]\n"
        << "GO\n"
        << "\n";
@@ -77,8 +95,7 @@ void mql::types()
     os << "// Object type book\n"
        << "CREATE OBJECT TYPE\n"
        << "[book\n"
-       << "  title_sletmig : string;\n"
-//       << "  book : book_name_t DEFAULT Genesis;\n"
+       << "  book : book_name_t;\n"
        << "]\n"
        << "GO\n"
        << "\n";
@@ -86,9 +103,8 @@ void mql::types()
     os << "// Object type chapter\n"
        << "CREATE OBJECT TYPE\n"
        << "[chapter\n"
-       << "  title_sletmig : string;\n"
+       << "  book : book_name_t;\n"
        << "  chapter : integer DEFAULT 0;\n"
-//       << "  book : book_name_t DEFAULT Genesis;\n"
        << "]\n"
        << "GO\n"
        << "\n";
@@ -96,30 +112,17 @@ void mql::types()
     os << "// Object type verse\n"
        << "CREATE OBJECT TYPE\n"
        << "[verse\n"
-       << "  title_sletmig : string;\n"
+       << "  book : book_name_t;\n"
        << "  chapter : integer DEFAULT 0;\n"
        << "  verse : integer DEFAULT 0;\n"
-//       << "  book : book_name_t DEFAULT Genesis;\n"
+       << "  ref : string DEFAULT \"\";\n"
        << "]\n"
        << "GO\n"
        << "\n";
 
-    os << "// Object type word\n"
+    os << "// Object type sentence\n"
        << "CREATE OBJECT TYPE\n"
-       << "[word\n"
-       << "  frequency_rank : integer DEFAULT 99999;\n"
-       << "  lexeme_occurrences : integer DEFAULT 0;\n"
-       << "  surface : string FROM SET  DEFAULT \"\";\n"
-       << "  lemma : string FROM SET  WITH INDEX  DEFAULT \"\";\n"
-       << "  psp : psp_t;\n"
-       << "  person : person_t DEFAULT NA;\n"
-       << "  number : number_t DEFAULT NA;\n"
-//       << "  case : case_t DEFAULT NA;\n"
-//       << "  gender : gender_t DEFAULT NA;\n"
-//       << "  tense : tense_t DEFAULT NA;\n"
-//       << "  voice : voice_t DEFAULT NA;\n"
-//       << "  mood : mood_t DEFAULT NA;\n"
-       << "  suffix : string FROM SET  DEFAULT \"\";\n"
+       << "[sentence\n"
        << "]\n"
        << "GO\n"
        << "\n";
@@ -148,20 +151,23 @@ void mql::make_word(const word& w)
        << "CREATE OBJECT\n"
        << "FROM MONADS= { " << w.monad() << " }\n"
        << "[\n"
-       << "frequency_rank:=0;\n"
-       << "lexeme_occurrences:=0;\n"
+       << "frequency_rank:=" << w.frequency_rank() << ";\n"
+       << "lexeme_occurrences:=" << w.occurrences() << ";\n"
+       << "ref:=\"" << w.citation_part() << "\";\n"
        << "surface:=\"" << w.form() << "\";\n"
+       << "normalized:=\""  << w.form() << "\";\n"  // Same as surface, but exercises will not add suffix
        << "lemma:=\"" << w.lemma() << "\";\n"
+       << "lemma_variant:=" << w.lemma_variant() << ";\n"
+       << "lemma_with_variant:=\"" << w.lemma() << (w.lemma_variant()==0 ? "" :
+                                                    w.lemma_variant()==1 ? " I" :
+                                                    w.lemma_variant()==2 ? " II" :
+                                                    w.lemma_variant()==3 ? " III" : " ?") << "\";\n"
        << "suffix:=\"" << w.suffix() << "\";\n"
        << "psp:=" << w.part_of_speech() << ";\n";
 
 
-    for (const string& key : {"person", "number"}) {
-        string val = w.morph(key);
-
-        if (val!="")
-            os << key << ":=" << val << ";\n";
-    }
+    for (const pair<string,string>& m : w.morph)
+        os << m.first << ":=" << m.second << ";\n";
 
     os << "]\n";
 }
@@ -181,7 +187,7 @@ void mql::make_book(const book& b)
        << "CREATE OBJECT\n"
        << "FROM MONADS= { " << b.start_monad() << "-" << b.end_monad() << " }\n"
        << "[\n"
-       << "title_sletmig:=\"" << b.book_name() << "\";\n"
+       << "book:=" << b.book_name() << ";\n"
        << "]\n";
 }
 
@@ -191,7 +197,7 @@ void mql::make_chapter(const chapter& c)
        << "CREATE OBJECT\n"
        << "FROM MONADS= { " << c.start_monad() << "-" << c.end_monad() << " }\n"
        << "[\n"
-       << "title_sletmig:=\"" << c.book_name() << "\";\n"
+       << "book:=" << c.book_name() << ";\n"
        << "chapter:=" << c.chap_no() << ";\n"
        << "]\n";
 }
@@ -202,9 +208,10 @@ void mql::make_verse(const verse& v)
        << "CREATE OBJECT\n"
        << "FROM MONADS= { " << v.start_monad() << "-" << v.end_monad() << " }\n"
        << "[\n"
-       << "title_sletmig:=\"" << v.book_name() << "\";\n"
+       << "book:=" << v.book_name() << ";\n"
        << "chapter:=" << v.chap_no() << ";\n"
        << "verse:=" << v.verse_no() << ";\n"
+       << "ref:=\"" << v.ref() << "\";\n"
        << "]\n";
 }
 

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include <initializer_list>
 
 #include "parse_latin_nt.hpp"
 
@@ -16,7 +17,7 @@ class mql {
     void head();
     void enums();
     void types();
-
+    
     void start_word() { start_type("word"); }
     void make_word(const word& w);
     void end_word() { end_type("word"); }
@@ -42,6 +43,7 @@ class mql {
     void tail();
     
   private:
+    void list_enum(const std::string& name, const std::initializer_list<std::string>& il, bool first_is_default=true);
     void start_type(const std::string& t);
     void end_type(const std::string& t);
     
