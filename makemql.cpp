@@ -62,6 +62,9 @@ void mql::enums()
     list_enum("case_t",  { "NA", "nominative", "accusative", "genitive", "dative", "ablative", "vocative" });
     list_enum("degree_t",{ "NA", "positive", "comparative", "superlative" });
     list_enum("inflection_t", { "non_inflecting", "inflecting" }, false);
+    list_enum("conjugation_t", { "NA", "first_c", "second_c", "third_c", "third_c_io", "fourth_c", "irregular" });
+    list_enum("declension_t", { "NA", "first_d", "first_or_second_d", "second_d", "second_d_er", "third_d", "fourth_d", "fifth_d", "indeclinable", "irregular" });
+    list_enum("stem_t", { "NA", "a", "b", "c", "d", "e", "g", "i", "l", "n", "o", "o_or_a", "p", "r", "t", "u", "v", "indeclinable", "irregular" });
 }
 
 void mql::types()
@@ -88,6 +91,9 @@ void mql::types()
        << "  mood : mood_t DEFAULT NA;\n"
        << "  degree : degree_t DEFAULT NA;\n"
        << "  inflection : inflection_t;\n"
+       << "  conjugation : conjugation_t DEFAULT NA;\n"
+       << "  declension : declension_t DEFAULT NA;\n"
+       << "  stem : stem_t DEFAULT NA;\n"
        << "]\n"
        << "GO\n"
        << "\n";
@@ -163,8 +169,10 @@ void mql::make_word(const word& w)
                                                     w.lemma_variant()==2 ? " II" :
                                                     w.lemma_variant()==3 ? " III" : " ?") << "\";\n"
        << "suffix:=\"" << w.suffix() << "\";\n"
-       << "psp:=" << w.part_of_speech() << ";\n";
-
+       << "psp:=" << w.part_of_speech() << ";\n"
+       << "conjugation:=" << w.conjugation() << ";\n"
+       << "declension:=" << w.declension() << ";\n"
+       << "stem:=" << w.stem() << ";\n";
 
     for (const pair<string,string>& m : w.morph)
         os << m.first << ":=" << m.second << ";\n";

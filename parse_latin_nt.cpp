@@ -6,10 +6,12 @@
 #include <tuple>
 #include <functional>
 #include <cctype>
+#include <stdexcept>
 
 #include "pugixml.hpp"
 #include "makemql.hpp"
 #include "parse_latin_nt.hpp"
+#include "read_inflection.hpp"
 
 using namespace std;
 
@@ -149,8 +151,12 @@ void adjust_psp()
     };
 
 
-    for (word& w : words)
-        w.part_of_speech(trans.at(w.part_of_speech()));
+    for (word& w : words) {
+        if (w.lemma()=="Naim")
+            w.part_of_speech("proper_noun"); // Fixing error in XML file
+        else
+            w.part_of_speech(trans.at(w.part_of_speech()));
+    }
 }
 
 void adjust_morphology()
@@ -377,6 +383,38 @@ void adjust_bcv()
     verses.back().end_monad(word::last_monad);
 }
 
+// Note: This function relies on lemma variants having been set by adjust_lemma(). Therefore this
+// function must be called after adjust_lemma().
+void add_inflection()
+{
+    for (word& w : words) {
+        string lemma_with_v = w.lemma() + (w.lemma_variant()==0 ? "" :
+                                           w.lemma_variant()==1 ? " I" :
+                                           w.lemma_variant()==2 ? " II" :
+                                           w.lemma_variant()==3 ? " III" : " ?");
+
+        try {
+            if (w.part_of_speech()=="noun") {
+                w.declension(noun_decl_map.at(lemma_with_v));
+                w.stem(noun_stem_map.at(lemma_with_v));
+            }
+            else if (w.part_of_speech()=="adjective") {
+                w.declension(adj_decl_map.at(lemma_with_v));
+                w.stem(adj_stem_map.at(lemma_with_v));
+            }
+            else if (w.part_of_speech()=="verb") {
+                w.conjugation(conj_map.at(lemma_with_v));
+            }
+        }
+        catch (const out_of_range& e) {
+            cerr << e.what() << "\n";
+            cerr << "Missing inflection information for '" << lemma_with_v << "'\n";
+            exit(1);
+        }
+    }
+}
+
+
 void print_lexicon()
 {
     ofstream lexfile{"lexifile.sql"};
@@ -451,11 +489,16 @@ int main()
         }
     }
 
+    read_inflection_spreadsheets();
+    
     adjust_suffix();
     adjust_psp();
     adjust_lemma();
     adjust_morphology();
     adjust_bcv();
+    
+    add_inflection(); // Note: Must be called after adjust_lemma()
+
     
     mql mql_file{"jvulgate.mql"};
 

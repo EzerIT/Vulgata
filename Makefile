@@ -1,7 +1,7 @@
 # Copyright © 2022 Claus Tøndering.
 # Released under an MIT License.
 
-OBJFILES=parse_latin_nt.o makemql.o pugixml.o
+OBJFILES=parse_latin_nt.o makemql.o read_inflection.o pugixml.o
 DEPFILES=$(OBJFILES:.o=.d)
 
 CXX=c++-11.1.0
@@ -15,14 +15,8 @@ jvulgate: jvulgate.mql
 jvulgate.mql:	parse_latin_nt
 	./parse_latin_nt
 
-parse_latin_nt:	parse_latin_nt.o makemql.o pugixml.o
+parse_latin_nt:	$(OBJFILES)
 	$(CXX) $(CXXFLAGS) -o $@ $+
-
-parse_latin_nt.o:	parse_latin_nt.cpp makemql.hpp parse_latin_nt.hpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
-makemql.o:	makemql.cpp makemql.hpp parse_latin_nt.hpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 pugixml.o:	pugixml/src/pugixml.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<

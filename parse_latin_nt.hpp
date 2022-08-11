@@ -22,6 +22,9 @@ class word {
           m_lemma_variant{0},
           m_part_of_speech{part_of_speech},
           m_morphology{morphology},
+          m_conjugation{"NA"},
+          m_declension{"NA"},
+          m_stem{"NA"},
           m_relation{relation},
           m_monad{++last_monad}
         {}
@@ -53,6 +56,15 @@ class word {
     int frequency_rank() const { return m_frequency_rank; }
     void frequency_rank(int r) { m_frequency_rank = r; }
     
+    std::string conjugation() const { return m_conjugation; }
+    void conjugation(std::string c) { m_conjugation = c; }
+    
+    std::string declension() const { return m_declension; }
+    void declension(std::string d) { m_declension = d; }
+    
+    std::string stem() const { return m_stem; }
+    void stem(std::string s) { m_stem = s; }
+    
     std::vector<std::pair<std::string,std::string>> morph;
     
     static long last_monad;
@@ -66,6 +78,9 @@ class word {
     std::string m_part_of_speech;
     std::string m_morphology;
     std::string m_relation;
+    std::string m_conjugation;
+    std::string m_declension;
+    std::string m_stem;
 
     std::string m_suffix;
 
