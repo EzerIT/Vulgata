@@ -1,0 +1,5128 @@
+// Create database
+CREATE DATABASE 'VC'
+GO
+
+// Switch to using database
+USE DATABASE 'VC' GO
+
+
+
+CREATE ENUMERATION book_name_t = {
+  Villa_Claudiae = 1
+}
+GO
+
+CREATE ENUMERATION psp_t = {
+  adjective = 1,
+  adverb = 2,
+  cardinal_numeral = 3,
+  conjunction = 4,
+  demonstrative_pronoun = 5,
+  foreign_word = 6,
+  indefinite_pronoun = 7,
+  interjection = 8,
+  interrogative_adverb = 9,
+  interrogative_pronoun = 10,
+  noun = 11,
+  ordinal_numeral = 12,
+  personal_pronoun = 13,
+  personal_reflexive_pronoun = 14,
+  possessive_pronoun = 15,
+  possessive_reflexive_pronoun = 16,
+  preposition = 17,
+  proper_noun = 18,
+  reciprocal_pronoun = 19,
+  relative_adverb = 20,
+  relative_pronoun = 21,
+  subjunction = 22,
+  verb = 23
+}
+GO
+
+CREATE ENUMERATION person_t = {
+  DEFAULT NA = 1,
+  first_person = 2,
+  second_person = 3,
+  third_person = 4
+}
+GO
+
+CREATE ENUMERATION number_t = {
+  DEFAULT NA = 1,
+  singular = 2,
+  plural = 3
+}
+GO
+
+CREATE ENUMERATION tense_t = {
+  DEFAULT NA = 1,
+  future = 2,
+  future_perfect = 3,
+  imperfect = 4,
+  perfect = 5,
+  pluperfect = 6,
+  present = 7
+}
+GO
+
+CREATE ENUMERATION mood_t = {
+  DEFAULT NA = 1,
+  indicative = 2,
+  subjunctive = 3,
+  imperative = 4,
+  infinitive = 5,
+  participle = 6,
+  gerund = 7,
+  gerundive = 8,
+  supine = 9
+}
+GO
+
+CREATE ENUMERATION voice_t = {
+  DEFAULT NA = 1,
+  active = 2,
+  passive = 3
+}
+GO
+
+CREATE ENUMERATION gender_t = {
+  DEFAULT NA = 1,
+  masculine = 2,
+  feminine = 3,
+  neuter = 4,
+  masculine_or_feminine = 5,
+  masculine_or_neuter = 6,
+  feminine_or_neuter = 7,
+  masculine_or_feminine_or_neuter = 8
+}
+GO
+
+CREATE ENUMERATION case_t = {
+  DEFAULT NA = 1,
+  nominative = 2,
+  accusative = 3,
+  genitive = 4,
+  dative = 5,
+  ablative = 6,
+  vocative = 7
+}
+GO
+
+CREATE ENUMERATION degree_t = {
+  DEFAULT NA = 1,
+  positive = 2,
+  comparative = 3,
+  superlative = 4
+}
+GO
+
+CREATE ENUMERATION inflection_t = {
+  non_inflecting = 1,
+  inflecting = 2
+}
+GO
+
+CREATE ENUMERATION conjugation_t = {
+  DEFAULT NA = 1,
+  first_c = 2,
+  second_c = 3,
+  third_c = 4,
+  third_c_io = 5,
+  fourth_c = 6,
+  irregular = 7
+}
+GO
+
+CREATE ENUMERATION declension_t = {
+  DEFAULT NA = 1,
+  first_d = 2,
+  first_or_second_d = 3,
+  second_d = 4,
+  second_d_er = 5,
+  third_d = 6,
+  fourth_d = 7,
+  fifth_d = 8,
+  indeclinable = 9,
+  irregular = 10
+}
+GO
+
+CREATE ENUMERATION stem_t = {
+  DEFAULT NA = 1,
+  a = 2,
+  b = 3,
+  c = 4,
+  d = 5,
+  e = 6,
+  g = 7,
+  i = 8,
+  l = 9,
+  n = 10,
+  o = 11,
+  o_or_a = 12,
+  p = 13,
+  r = 14,
+  t = 15,
+  u = 16,
+  v = 17,
+  indeclinable = 18,
+  irregular = 19
+}
+GO
+
+// Object type word
+CREATE OBJECT TYPE
+[word
+  frequency_rank : integer DEFAULT 99999;
+  lexeme_occurrences : integer DEFAULT 0;
+  ref : string DEFAULT "";
+  surface : string FROM SET DEFAULT "";
+  suffix : string FROM SET  DEFAULT "";
+  normalized : string FROM SET DEFAULT "";
+  lemma : string FROM SET WITH INDEX DEFAULT "";
+  lemma_variant : integer DEFAULT 0;
+  lemma_with_variant : string FROM SET WITH INDEX DEFAULT "";
+  psp : psp_t;
+  person : person_t DEFAULT NA;
+  number : number_t DEFAULT NA;
+  case : case_t DEFAULT NA;
+  gender : gender_t DEFAULT NA;
+  tense : tense_t DEFAULT NA;
+  voice : voice_t DEFAULT NA;
+  mood : mood_t DEFAULT NA;
+  degree : degree_t DEFAULT NA;
+  inflection : inflection_t;
+  conjugation : conjugation_t DEFAULT NA;
+  declension : declension_t DEFAULT NA;
+  stem : stem_t DEFAULT NA;
+]
+GO
+
+// Object type book
+CREATE OBJECT TYPE
+[book
+  book : book_name_t;
+]
+GO
+
+// Object type chapter
+CREATE OBJECT TYPE
+[chapter
+  book : book_name_t;
+  chapter : integer DEFAULT 0;
+]
+GO
+
+// Object type verse
+CREATE OBJECT TYPE
+[verse
+  book : book_name_t;
+  chapter : integer DEFAULT 0;
+  verse : integer DEFAULT 0;
+  ref : string DEFAULT "";
+]
+GO
+
+// Object type sentence
+CREATE OBJECT TYPE
+[sentence
+]
+GO
+
+DROP INDEXES ON OBJECT TYPE[word] GO
+
+CREATE OBJECTS
+WITH OBJECT TYPE[word]
+
+CREATE OBJECT
+FROM MONADS= { 1 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.1";
+surface:="villa";
+normalized:="villa";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 2 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.1";
+surface:="Claudiae";
+normalized:="Claudiae";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=". ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 3 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.2";
+surface:="Sicilia";
+normalized:="Sicilia";
+lemma:="Sicilia";
+lemma_variant:=0;
+lemma_with_variant:="Sicilia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 4 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.2";
+surface:="insula";
+normalized:="insula";
+lemma:="insula";
+lemma_variant:=0;
+lemma_with_variant:="insula";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 5 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.2";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 6 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.3";
+surface:="Italia";
+normalized:="Italia";
+lemma:="Italia";
+lemma_variant:=0;
+lemma_with_variant:="Italia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 7 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.3";
+surface:="paeninsula";
+normalized:="paeninsula";
+lemma:="paeninsula";
+lemma_variant:=0;
+lemma_with_variant:="paeninsula";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 8 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.3";
+surface:="magna";
+normalized:="magna";
+lemma:="magnus";
+lemma_variant:=0;
+lemma_with_variant:="magnus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 9 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.3";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 10 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.4";
+surface:="Campania";
+normalized:="Campania";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 11 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.4";
+surface:="in";
+normalized:="in";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 12 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.4";
+surface:="Italia";
+normalized:="Italia";
+lemma:="Italia";
+lemma_variant:=0;
+lemma_with_variant:="Italia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 13 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.4";
+surface:="sita";
+normalized:="sita";
+lemma:="situs";
+lemma_variant:=0;
+lemma_with_variant:="situs";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 14 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.4";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 15 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.5";
+surface:="Sicilia";
+normalized:="Sicilia";
+lemma:="Sicilia";
+lemma_variant:=0;
+lemma_with_variant:="Sicilia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 16 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.5";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 17 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.5";
+surface:="Campania";
+normalized:="Campania";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 18 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.5";
+surface:="terrae";
+normalized:="terrae";
+lemma:="terra";
+lemma_variant:=0;
+lemma_with_variant:="terra";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 19 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.5";
+surface:="fecundae";
+normalized:="fecundae";
+lemma:="fecundus";
+lemma_variant:=0;
+lemma_with_variant:="fecundus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 20 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.5";
+surface:="sunt";
+normalized:="sunt";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 21 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.6";
+surface:="Campania";
+normalized:="Campania";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 22 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.6";
+surface:="multas";
+normalized:="multas";
+lemma:="multus";
+lemma_variant:=0;
+lemma_with_variant:="multus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 23 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.6";
+surface:="villas";
+normalized:="villas";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 24 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.6";
+surface:="habet";
+normalized:="habet";
+lemma:="habeo";
+lemma_variant:=0;
+lemma_with_variant:="habeo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 25 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.7";
+surface:="viae";
+normalized:="viae";
+lemma:="via";
+lemma_variant:=0;
+lemma_with_variant:="via";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 26 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.7";
+surface:="bonae";
+normalized:="bonae";
+lemma:="bonus";
+lemma_variant:=0;
+lemma_with_variant:="bonus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 27 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.7";
+surface:="Roman";
+normalized:="Roman";
+lemma:="Roma";
+lemma_variant:=0;
+lemma_with_variant:="Roma";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 28 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.7";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 29 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.7";
+surface:="Campaniam";
+normalized:="Campaniam";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 30 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.7";
+surface:="uniunt";
+normalized:="uniunt";
+lemma:="unio";
+lemma_variant:=0;
+lemma_with_variant:="unio";
+suffix:=". ";
+psp:=verb;
+conjugation:=fourth_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 31 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.8";
+surface:="Feminae";
+normalized:="Feminae";
+lemma:="femina";
+lemma_variant:=0;
+lemma_with_variant:="femina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 32 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.8";
+surface:="peregrinae";
+normalized:="peregrinae";
+lemma:="peregrinus";
+lemma_variant:=0;
+lemma_with_variant:="peregrinus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 33 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.8";
+surface:="in";
+normalized:="in";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 34 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.8";
+surface:="Campaniam";
+normalized:="Campaniam";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 35 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.8";
+surface:="saepe";
+normalized:="saepe";
+lemma:="saepe";
+lemma_variant:=0;
+lemma_with_variant:="saepe";
+suffix:=" ";
+psp:=adverb;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 36 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.8";
+surface:="veniunt";
+normalized:="veniunt";
+lemma:="venio";
+lemma_variant:=0;
+lemma_with_variant:="venio";
+suffix:=". ";
+psp:=verb;
+conjugation:=fourth_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 37 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.9";
+surface:="In";
+normalized:="In";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 38 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.9";
+surface:="Campania";
+normalized:="Campania";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 39 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.9";
+surface:="villas";
+normalized:="villas";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 40 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.9";
+surface:="magnas";
+normalized:="magnas";
+lemma:="magnus";
+lemma_variant:=0;
+lemma_with_variant:="magnus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 41 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.9";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 42 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.9";
+surface:="pulchras";
+normalized:="pulchras";
+lemma:="pulcher";
+lemma_variant:=0;
+lemma_with_variant:="pulcher";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 43 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.9";
+surface:="vident";
+normalized:="vident";
+lemma:="video";
+lemma_variant:=0;
+lemma_with_variant:="video";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 44 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.10";
+surface:="Claudia";
+normalized:="Claudia";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 45 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.10";
+surface:="domina";
+normalized:="domina";
+lemma:="domina";
+lemma_variant:=0;
+lemma_with_variant:="domina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 46 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.10";
+surface:="villae";
+normalized:="villae";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 47 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.10";
+surface:="rusticae";
+normalized:="rusticae";
+lemma:="rusticus";
+lemma_variant:=0;
+lemma_with_variant:="rusticus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 48 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.10";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 49 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.11";
+surface:="villa";
+normalized:="villa";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 50 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.11";
+surface:="Claudiae";
+normalized:="Claudiae";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 51 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.11";
+surface:="prope";
+normalized:="prope";
+lemma:="prope";
+lemma_variant:=0;
+lemma_with_variant:="prope";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 52 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.11";
+surface:="Nuceriam";
+normalized:="Nuceriam";
+lemma:="Nuceria";
+lemma_variant:=0;
+lemma_with_variant:="Nuceria";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 53 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.11";
+surface:="sita";
+normalized:="sita";
+lemma:="situs";
+lemma_variant:=0;
+lemma_with_variant:="situs";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 54 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.11";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 55 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.12";
+surface:="Ante";
+normalized:="Ante";
+lemma:="ante";
+lemma_variant:=0;
+lemma_with_variant:="ante";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 56 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.12";
+surface:="villam";
+normalized:="villam";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 57 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.12";
+surface:="Claudiae";
+normalized:="Claudiae";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 58 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.12";
+surface:="viam";
+normalized:="viam";
+lemma:="via";
+lemma_variant:=0;
+lemma_with_variant:="via";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 59 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.12";
+surface:="latam";
+normalized:="latam";
+lemma:="latus";
+lemma_variant:=0;
+lemma_with_variant:="latus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 60 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.12";
+surface:="videmus";
+normalized:="videmus";
+lemma:="video";
+lemma_variant:=0;
+lemma_with_variant:="video";
+suffix:="; ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=first_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 61 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.12";
+surface:="post";
+normalized:="post";
+lemma:="post";
+lemma_variant:=0;
+lemma_with_variant:="post";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 62 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.12";
+surface:="villam";
+normalized:="villam";
+lemma:="villa";
+lemma_variant:=0;
+lemma_with_variant:="villa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 63 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.12";
+surface:="piscina";
+normalized:="piscina";
+lemma:="piscina";
+lemma_variant:=0;
+lemma_with_variant:="piscina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 64 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.12";
+surface:="bona";
+normalized:="bona";
+lemma:="bonus";
+lemma_variant:=0;
+lemma_with_variant:="bonus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 65 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.12";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 66 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.12";
+surface:="vinea";
+normalized:="vinea";
+lemma:="vinea";
+lemma_variant:=0;
+lemma_with_variant:="vinea";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 67 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.12";
+surface:="fecunda";
+normalized:="fecunda";
+lemma:="fecundus";
+lemma_variant:=0;
+lemma_with_variant:="fecundus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 68 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.12";
+surface:="sunt";
+normalized:="sunt";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 69 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.13";
+surface:="Aqua";
+normalized:="Aqua";
+lemma:="aqua";
+lemma_variant:=0;
+lemma_with_variant:="aqua";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 70 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.13";
+surface:="piscinae";
+normalized:="piscinae";
+lemma:="piscina";
+lemma_variant:=0;
+lemma_with_variant:="piscina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 71 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.13";
+surface:="frigida";
+normalized:="frigida";
+lemma:="frigidus";
+lemma_variant:=0;
+lemma_with_variant:="frigidus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 72 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.13";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 73 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.14";
+surface:="Claudia";
+normalized:="Claudia";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 74 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.14";
+surface:="familiam";
+normalized:="familiam";
+lemma:="familia";
+lemma_variant:=0;
+lemma_with_variant:="familia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 75 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.14";
+surface:="bonam";
+normalized:="bonam";
+lemma:="bonus";
+lemma_variant:=0;
+lemma_with_variant:="bonus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 76 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.14";
+surface:="habet";
+normalized:="habet";
+lemma:="habeo";
+lemma_variant:=0;
+lemma_with_variant:="habeo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 77 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.15";
+surface:="Sophia";
+normalized:="Sophia";
+lemma:="Sophia";
+lemma_variant:=0;
+lemma_with_variant:="Sophia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 78 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.15";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 79 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.15";
+surface:="Hilda";
+normalized:="Hilda";
+lemma:="Hilda";
+lemma_variant:=0;
+lemma_with_variant:="Hilda";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 80 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.15";
+surface:="sunt";
+normalized:="sunt";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=" ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 81 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.15";
+surface:="ancillae";
+normalized:="ancillae";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 82 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.15";
+surface:="Claudiae";
+normalized:="Claudiae";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=". ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 83 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.16";
+surface:="Hilda";
+normalized:="Hilda";
+lemma:="Hilda";
+lemma_variant:=0;
+lemma_with_variant:="Hilda";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 84 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.16";
+surface:="in";
+normalized:="in";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 85 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.16";
+surface:="Thyra";
+normalized:="Thyra";
+lemma:="Thyra";
+lemma_variant:=0;
+lemma_with_variant:="Thyra";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 86 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.16";
+surface:="nata";
+normalized:="nata";
+lemma:="natus";
+lemma_variant:=0;
+lemma_with_variant:="natus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 87 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.16";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 88 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.17";
+surface:="Sophia";
+normalized:="Sophia";
+lemma:="Sophia";
+lemma_variant:=0;
+lemma_with_variant:="Sophia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 89 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.17";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=" ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 90 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.17";
+surface:="ancilla";
+normalized:="ancilla";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 91 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.17";
+surface:="Graeca";
+normalized:="Graeca";
+lemma:="Graecus";
+lemma_variant:=0;
+lemma_with_variant:="Graecus";
+suffix:=". ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 92 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.18";
+surface:="Hilda";
+normalized:="Hilda";
+lemma:="Hilda";
+lemma_variant:=0;
+lemma_with_variant:="Hilda";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 93 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.18";
+surface:="curiosa";
+normalized:="curiosa";
+lemma:="curiosus";
+lemma_variant:=0;
+lemma_with_variant:="curiosus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 94 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.18";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=", ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 95 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.18";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 96 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.18";
+surface:="Sophia";
+normalized:="Sophia";
+lemma:="Sophia";
+lemma_variant:=0;
+lemma_with_variant:="Sophia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 97 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.18";
+surface:="scientiam";
+normalized:="scientiam";
+lemma:="scientia";
+lemma_variant:=0;
+lemma_with_variant:="scientia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 98 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.18";
+surface:="magnam";
+normalized:="magnam";
+lemma:="magnus";
+lemma_variant:=0;
+lemma_with_variant:="magnus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 99 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.18";
+surface:="habet";
+normalized:="habet";
+lemma:="habeo";
+lemma_variant:=0;
+lemma_with_variant:="habeo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 100 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.19";
+surface:="Sophia";
+normalized:="Sophia";
+lemma:="Sophia";
+lemma_variant:=0;
+lemma_with_variant:="Sophia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 101 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.19";
+surface:="propter";
+normalized:="propter";
+lemma:="propter";
+lemma_variant:=0;
+lemma_with_variant:="propter";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 102 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.19";
+surface:="scientiam";
+normalized:="scientiam";
+lemma:="scientia";
+lemma_variant:=0;
+lemma_with_variant:="scientia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 103 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.19";
+surface:="linguae";
+normalized:="linguae";
+lemma:="lingua";
+lemma_variant:=0;
+lemma_with_variant:="lingua";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 104 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.19";
+surface:="Graecae";
+normalized:="Graecae";
+lemma:="Graecus";
+lemma_variant:=0;
+lemma_with_variant:="Graecus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 105 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.19";
+surface:="ancilla";
+normalized:="ancilla";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 106 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.19";
+surface:="pretiosa";
+normalized:="pretiosa";
+lemma:="pretiosus";
+lemma_variant:=0;
+lemma_with_variant:="pretiosus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 107 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.19";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 108 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.20";
+surface:="Claudia";
+normalized:="Claudia";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 109 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.20";
+surface:="tunica";
+normalized:="tunica";
+lemma:="tunica";
+lemma_variant:=0;
+lemma_with_variant:="tunica";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 110 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.20";
+surface:="longa";
+normalized:="longa";
+lemma:="longus";
+lemma_variant:=0;
+lemma_with_variant:="longus";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 111 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.20";
+surface:="vestita";
+normalized:="vestita";
+lemma:="vestio";
+lemma_variant:=0;
+lemma_with_variant:="vestio";
+suffix:=" ";
+psp:=verb;
+conjugation:=fourth_c;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=participle;
+voice:=passive;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 112 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.20";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 113 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.21";
+surface:="Ancillas";
+normalized:="Ancillas";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 114 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.21";
+surface:="tunicis";
+normalized:="tunicis";
+lemma:="tunica";
+lemma_variant:=0;
+lemma_with_variant:="tunica";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 115 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.21";
+surface:="parvis";
+normalized:="parvis";
+lemma:="parvus";
+lemma_variant:=0;
+lemma_with_variant:="parvus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 116 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.21";
+surface:="vestitas";
+normalized:="vestitas";
+lemma:="vestio";
+lemma_variant:=0;
+lemma_with_variant:="vestio";
+suffix:=" ";
+psp:=verb;
+conjugation:=fourth_c;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=participle;
+voice:=passive;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 117 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.21";
+surface:="videmus";
+normalized:="videmus";
+lemma:="video";
+lemma_variant:=0;
+lemma_with_variant:="video";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=first_person;
+number:=plural;
+tense:=present;
+mood:=NA;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 118 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.22";
+surface:="Feminae";
+normalized:="Feminae";
+lemma:="femina";
+lemma_variant:=0;
+lemma_with_variant:="femina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 119 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.22";
+surface:="prope";
+normalized:="prope";
+lemma:="prope";
+lemma_variant:=0;
+lemma_with_variant:="prope";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 120 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.22";
+surface:="telam";
+normalized:="telam";
+lemma:="tela";
+lemma_variant:=0;
+lemma_with_variant:="tela";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 121 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.22";
+surface:="sedent";
+normalized:="sedent";
+lemma:="sedeo";
+lemma_variant:=0;
+lemma_with_variant:="sedeo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 122 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.23";
+surface:="Lana";
+normalized:="Lana";
+lemma:="lana";
+lemma_variant:=0;
+lemma_with_variant:="lana";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 123 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.23";
+surface:="alba";
+normalized:="alba";
+lemma:="albus";
+lemma_variant:=0;
+lemma_with_variant:="albus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 124 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.23";
+surface:="in";
+normalized:="in";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 125 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.23";
+surface:="corbula";
+normalized:="corbula";
+lemma:="corbula";
+lemma_variant:=0;
+lemma_with_variant:="corbula";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 126 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.23";
+surface:="iacet";
+normalized:="iacet";
+lemma:="iaceo";
+lemma_variant:=0;
+lemma_with_variant:="iaceo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 127 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.24";
+surface:="Claudia";
+normalized:="Claudia";
+lemma:="Claudia";
+lemma_variant:=0;
+lemma_with_variant:="Claudia";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 128 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.24";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 129 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.24";
+surface:="ancillae";
+normalized:="ancillae";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 130 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.24";
+surface:="lanam";
+normalized:="lanam";
+lemma:="lana";
+lemma_variant:=0;
+lemma_with_variant:="lana";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 131 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.24";
+surface:="novam";
+normalized:="novam";
+lemma:="novus";
+lemma_variant:=0;
+lemma_with_variant:="novus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 132 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.24";
+surface:="nent";
+normalized:="nent";
+lemma:="neo";
+lemma_variant:=0;
+lemma_with_variant:="neo";
+suffix:=". ";
+psp:=verb;
+conjugation:=third_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 133 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.25";
+surface:="ab";
+normalized:="ab";
+lemma:="ab";
+lemma_variant:=0;
+lemma_with_variant:="ab";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 134 }
+[
+frequency_rank:=8;
+lexeme_occurrences:=5;
+ref:="VC 1.25";
+surface:="hora";
+normalized:="hora";
+lemma:="hora";
+lemma_variant:=0;
+lemma_with_variant:="hora";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 135 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.25";
+surface:="tertia";
+normalized:="tertia";
+lemma:="tertius";
+lemma_variant:=0;
+lemma_with_variant:="tertius";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 136 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.25";
+surface:="ad";
+normalized:="ad";
+lemma:="ad";
+lemma_variant:=0;
+lemma_with_variant:="ad";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 137 }
+[
+frequency_rank:=8;
+lexeme_occurrences:=5;
+ref:="VC 1.25";
+surface:="horam";
+normalized:="horam";
+lemma:="hora";
+lemma_variant:=0;
+lemma_with_variant:="hora";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 138 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.25";
+surface:="sextam";
+normalized:="sextam";
+lemma:="sextus";
+lemma_variant:=0;
+lemma_with_variant:="sextus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 139 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.25";
+surface:="industria";
+normalized:="industria";
+lemma:="industria";
+lemma_variant:=0;
+lemma_with_variant:="industria";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 140 }
+[
+frequency_rank:=11;
+lexeme_occurrences:=3;
+ref:="VC 1.25";
+surface:="feminarum";
+normalized:="feminarum";
+lemma:="femina";
+lemma_variant:=0;
+lemma_with_variant:="femina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=genitive;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 141 }
+[
+frequency_rank:=9;
+lexeme_occurrences:=4;
+ref:="VC 1.25";
+surface:="magna";
+normalized:="magna";
+lemma:="magnus";
+lemma_variant:=0;
+lemma_with_variant:="magnus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 142 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.25";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 143 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.26";
+surface:="In";
+normalized:="In";
+lemma:="in";
+lemma_variant:=0;
+lemma_with_variant:="in";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 144 }
+[
+frequency_rank:=4;
+lexeme_occurrences:=7;
+ref:="VC 1.26";
+surface:="Campania";
+normalized:="Campania";
+lemma:="Campania";
+lemma_variant:=0;
+lemma_with_variant:="Campania";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 145 }
+[
+frequency_rank:=8;
+lexeme_occurrences:=5;
+ref:="VC 1.26";
+surface:="horae";
+normalized:="horae";
+lemma:="hora";
+lemma_variant:=0;
+lemma_with_variant:="hora";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 146 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.26";
+surface:="meridianae";
+normalized:="meridianae";
+lemma:="meridianus";
+lemma_variant:=0;
+lemma_with_variant:="meridianus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 147 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.26";
+surface:="calidae";
+normalized:="calidae";
+lemma:="calidus";
+lemma_variant:=0;
+lemma_with_variant:="calidus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 148 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.26";
+surface:="sunt";
+normalized:="sunt";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=plural;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 149 }
+[
+frequency_rank:=8;
+lexeme_occurrences:=5;
+ref:="VC 1.27";
+surface:="Hora";
+normalized:="Hora";
+lemma:="hora";
+lemma_variant:=0;
+lemma_with_variant:="hora";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 150 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.27";
+surface:="sexta";
+normalized:="sexta";
+lemma:="sextus";
+lemma_variant:=0;
+lemma_with_variant:="sextus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 151 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.27";
+surface:="aut";
+normalized:="aut";
+lemma:="aut";
+lemma_variant:=0;
+lemma_with_variant:="aut";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 152 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.27";
+surface:="septima";
+normalized:="septima";
+lemma:="septimus";
+lemma_variant:=0;
+lemma_with_variant:="septimus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=positive;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 153 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.27";
+surface:="ad";
+normalized:="ad";
+lemma:="ad";
+lemma_variant:=0;
+lemma_with_variant:="ad";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 154 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.27";
+surface:="ceram";
+normalized:="ceram";
+lemma:="cera";
+lemma_variant:=0;
+lemma_with_variant:="cera";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 155 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.27";
+surface:="destinata";
+normalized:="destinata";
+lemma:="destino";
+lemma_variant:=0;
+lemma_with_variant:="destino";
+suffix:=" ";
+psp:=verb;
+conjugation:=first_c;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=participle;
+voice:=passive;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 156 }
+[
+frequency_rank:=1;
+lexeme_occurrences:=17;
+ref:="VC 1.27";
+surface:="est";
+normalized:="est";
+lemma:="sum";
+lemma_variant:=0;
+lemma_with_variant:="sum";
+suffix:=". ";
+psp:=verb;
+conjugation:=irregular;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 157 }
+[
+frequency_rank:=8;
+lexeme_occurrences:=5;
+ref:="VC 1.28";
+surface:="Hora";
+normalized:="Hora";
+lemma:="hora";
+lemma_variant:=0;
+lemma_with_variant:="hora";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 158 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.28";
+surface:="septima";
+normalized:="septima";
+lemma:="septimus";
+lemma_variant:=0;
+lemma_with_variant:="septimus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=ablative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 159 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.28";
+surface:="domina";
+normalized:="domina";
+lemma:="domina";
+lemma_variant:=0;
+lemma_with_variant:="domina";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 160 }
+[
+frequency_rank:=2;
+lexeme_occurrences:=8;
+ref:="VC 1.28";
+surface:="et";
+normalized:="et";
+lemma:="et";
+lemma_variant:=0;
+lemma_with_variant:="et";
+suffix:=" ";
+psp:=conjunction;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 161 }
+[
+frequency_rank:=6;
+lexeme_occurrences:=6;
+ref:="VC 1.28";
+surface:="ancillae";
+normalized:="ancillae";
+lemma:="ancilla";
+lemma_variant:=0;
+lemma_with_variant:="ancilla";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=plural;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=nominative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 162 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.28";
+surface:="cirum";
+normalized:="cirum";
+lemma:="cirum";
+lemma_variant:=0;
+lemma_with_variant:="cirum";
+suffix:=" ";
+psp:=preposition;
+conjugation:=NA;
+declension:=NA;
+stem:=NA;
+person:=NA;
+number:=NA;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=non_inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 163 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.28";
+surface:="mensam";
+normalized:="mensam";
+lemma:="mensa";
+lemma_variant:=0;
+lemma_with_variant:="mensa";
+suffix:=" ";
+psp:=noun;
+conjugation:=NA;
+declension:=first_d;
+stem:=a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 164 }
+[
+frequency_rank:=33;
+lexeme_occurrences:=1;
+ref:="VC 1.28";
+surface:="marmoream";
+normalized:="marmoream";
+lemma:="marmoreus";
+lemma_variant:=0;
+lemma_with_variant:="marmoreus";
+suffix:=" ";
+psp:=adjective;
+conjugation:=NA;
+declension:=first_or_second_d;
+stem:=o_or_a;
+person:=NA;
+number:=singular;
+tense:=NA;
+mood:=NA;
+voice:=NA;
+gender:=feminine;
+case:=accusative;
+degree:=NA;
+inflection:=inflecting;
+]
+
+CREATE OBJECT
+FROM MONADS= { 165 }
+[
+frequency_rank:=16;
+lexeme_occurrences:=2;
+ref:="VC 1.28";
+surface:="iacent";
+normalized:="iacent";
+lemma:="iaceo";
+lemma_variant:=0;
+lemma_with_variant:="iaceo";
+suffix:=". ";
+psp:=verb;
+conjugation:=second_c;
+declension:=NA;
+stem:=NA;
+person:=third_person;
+number:=singular;
+tense:=present;
+mood:=indicative;
+voice:=active;
+gender:=NA;
+case:=NA;
+degree:=NA;
+inflection:=inflecting;
+]
+GO
+CREATE INDEXES ON OBJECT TYPE[word] GO
+
+DROP INDEXES ON OBJECT TYPE[sentence] GO
+
+CREATE OBJECTS
+WITH OBJECT TYPE[sentence]
+
+CREATE OBJECT
+FROM MONADS= { 1-2 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 3-5 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 6-9 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 10-14 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 15-20 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 21-24 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 25-30 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 31-36 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 37-43 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 44-48 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 49-54 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 55-68 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 69-72 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 73-76 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 77-82 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 83-87 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 88-91 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 92-99 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 100-107 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 108-112 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 113-117 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 118-121 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 122-126 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 127-132 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 133-142 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 143-148 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 149-156 }
+[
+]
+
+CREATE OBJECT
+FROM MONADS= { 157-165 }
+[
+]
+GO
+CREATE INDEXES ON OBJECT TYPE[sentence] GO
+
+DROP INDEXES ON OBJECT TYPE[book] GO
+
+CREATE OBJECTS
+WITH OBJECT TYPE[book]
+
+CREATE OBJECT
+FROM MONADS= { 1-165 }
+[
+book:=Villa_Claudiae;
+]
+GO
+CREATE INDEXES ON OBJECT TYPE[book] GO
+
+DROP INDEXES ON OBJECT TYPE[chapter] GO
+
+CREATE OBJECTS
+WITH OBJECT TYPE[chapter]
+
+CREATE OBJECT
+FROM MONADS= { 1-165 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+]
+GO
+CREATE INDEXES ON OBJECT TYPE[chapter] GO
+
+DROP INDEXES ON OBJECT TYPE[verse] GO
+
+CREATE OBJECTS
+WITH OBJECT TYPE[verse]
+
+CREATE OBJECT
+FROM MONADS= { 1-2 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=1;
+ref:="VC 1.1";
+]
+
+CREATE OBJECT
+FROM MONADS= { 3-5 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=2;
+ref:="VC 1.2";
+]
+
+CREATE OBJECT
+FROM MONADS= { 6-9 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=3;
+ref:="VC 1.3";
+]
+
+CREATE OBJECT
+FROM MONADS= { 10-14 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=4;
+ref:="VC 1.4";
+]
+
+CREATE OBJECT
+FROM MONADS= { 15-20 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=5;
+ref:="VC 1.5";
+]
+
+CREATE OBJECT
+FROM MONADS= { 21-24 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=6;
+ref:="VC 1.6";
+]
+
+CREATE OBJECT
+FROM MONADS= { 25-30 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=7;
+ref:="VC 1.7";
+]
+
+CREATE OBJECT
+FROM MONADS= { 31-36 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=8;
+ref:="VC 1.8";
+]
+
+CREATE OBJECT
+FROM MONADS= { 37-43 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=9;
+ref:="VC 1.9";
+]
+
+CREATE OBJECT
+FROM MONADS= { 44-48 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=10;
+ref:="VC 1.10";
+]
+
+CREATE OBJECT
+FROM MONADS= { 49-54 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=11;
+ref:="VC 1.11";
+]
+
+CREATE OBJECT
+FROM MONADS= { 55-68 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=12;
+ref:="VC 1.12";
+]
+
+CREATE OBJECT
+FROM MONADS= { 69-72 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=13;
+ref:="VC 1.13";
+]
+
+CREATE OBJECT
+FROM MONADS= { 73-76 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=14;
+ref:="VC 1.14";
+]
+
+CREATE OBJECT
+FROM MONADS= { 77-82 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=15;
+ref:="VC 1.15";
+]
+
+CREATE OBJECT
+FROM MONADS= { 83-87 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=16;
+ref:="VC 1.16";
+]
+
+CREATE OBJECT
+FROM MONADS= { 88-91 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=17;
+ref:="VC 1.17";
+]
+
+CREATE OBJECT
+FROM MONADS= { 92-99 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=18;
+ref:="VC 1.18";
+]
+
+CREATE OBJECT
+FROM MONADS= { 100-107 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=19;
+ref:="VC 1.19";
+]
+
+CREATE OBJECT
+FROM MONADS= { 108-112 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=20;
+ref:="VC 1.20";
+]
+
+CREATE OBJECT
+FROM MONADS= { 113-117 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=21;
+ref:="VC 1.21";
+]
+
+CREATE OBJECT
+FROM MONADS= { 118-121 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=22;
+ref:="VC 1.22";
+]
+
+CREATE OBJECT
+FROM MONADS= { 122-126 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=23;
+ref:="VC 1.23";
+]
+
+CREATE OBJECT
+FROM MONADS= { 127-132 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=24;
+ref:="VC 1.24";
+]
+
+CREATE OBJECT
+FROM MONADS= { 133-142 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=25;
+ref:="VC 1.25";
+]
+
+CREATE OBJECT
+FROM MONADS= { 143-148 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=26;
+ref:="VC 1.26";
+]
+
+CREATE OBJECT
+FROM MONADS= { 149-156 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=27;
+ref:="VC 1.27";
+]
+
+CREATE OBJECT
+FROM MONADS= { 157-165 }
+[
+book:=Villa_Claudiae;
+chapter:=1;
+verse:=28;
+ref:="VC 1.28";
+]
+GO
+CREATE INDEXES ON OBJECT TYPE[verse] GO
+
+VACUUM DATABASE ANALYZE GO
+
