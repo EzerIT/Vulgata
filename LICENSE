@@ -1,0 +1,57 @@
+The files
+    makewordlist/*.csv
+    makewordlist/*.xlsx
+are copyright (c) 2022 by Mikkel Kølkær.
+
+The files
+    villa_claudiae/*.csv
+    villa_claudiae/*.xlsx
+    villa_claudiae/VillaClaudiae-1.pdf
+are copyright (c) 2022 by Mikkel Kølkær and Henrik Bolt-Jørgensen. The text to the work "Villa Claudiae"
+can be freely used, provided the author, Henrik Bolt-Jørgensen, is mentioned.
+
+The files in the directory
+   rapidcsv
+are Copyright (C) 2017-2021 by Kristofer Berggren, and licensed as described in the LICENSE
+file of that directory.
+
+The files in the directory
+    pugixml
+are Copyright (c) 2006-2022 by Arseny Kapoulkine, and licensed as described in the LICENSE.md
+file in that directory
+
+The files in the directory
+    proiel-treebank
+are licensed as described in the README.md file in that directory
+
+The file
+    vul.xml
+contains data provided by Department of Philosophy, Classics, History of Arts and Ideas, Oslo,
+Norway. Licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+license.
+
+
+The remaining files are
+Copyright (c) 2022 by Claus Tøndering.
+
+Except as noted above, the files are licensed under these terms:
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
