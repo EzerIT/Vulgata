@@ -1,0 +1,8 @@
+*#
+*~
+*.o
+*.d
+parse_latin_vc
+VC
+VC.mql
+lexifile.sql

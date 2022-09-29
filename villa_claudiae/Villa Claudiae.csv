@@ -1,0 +1,195 @@
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)","Stamme","Tekst"
+1,"villa","villa","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Villa Claudiae"
+1,"Claudiae","Claudia","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,
+2,"Sicilia","Sicilia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Sicilia insula est. "
+2,"insula","insula","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+2,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)",,,
+3,"Italia","Italia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Italia paeninsula magna est. "
+3,"paeninsula","paeninsula","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+3,"magna","magnus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+3,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,
+4,"Campania","Campania","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Campania in Italia sita est. "
+4,"in","in","preposition",,,,,,,,,"nej",,,,
+4,"Italia","Italia","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+4,"sita ","situs","adjective",,"singular",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+4,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+5,"Sicilia","Sicilia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Sicilia et Campania terrae fecundae sunt"
+5,"et","et","conjunction",,,,,,,,,"nej",,,,
+5,"Campania","Campania","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+5," terrae","terra","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+5," fecundae ","fecundus","adjective",,"plural",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+5,"sunt","sum","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+6,"Campania","Campania","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Campania multas villas habet"
+6,"multas","multus","adjective",,"plural",,,,"feminine","accusative",,"ja",,"1./2.","o-/a-stamme",
+6,"villas","villa","noun",,"plural",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+6,"habet","habeo","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+7,"viae","via","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Viae bonae Romam et Campaniam uniunt"
+7,"bonae","bonus","adjective",,"plural",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+7,"Roman","Roma","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+7,"et","et","conjunction",,,,,,,,,"nej",,,,
+7,"Campaniam","Campania","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+7,"uniunt","unio","verb","third_person","plural","present","indicative","active",,,,"ja","4.",,"i-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+8,"Feminae","femina","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Feminae peregrinae in Campaniam saepe veniunt"
+8,"peregrinae","peregrinus","adjective",,"plural",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+8,"in","in","preposition",,,,,,,,,"nej",,,,
+8,"Campaniam","Campania","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+8,"saepe","saepe","adverb",,,,,,,,"positive","ja",,,,
+8,"veniunt","venio","verb","third_person","plural","present","indicative","active",,,,"ja","4.",,"i-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+9,"In","in","preposition",,,,,,,,,"nej",,,,"In Campania villas magnas et pulchras vident"
+9,"Campania","Campania","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+9,"villas","villa","noun",,"plural",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+9,"magnas","magnus","adjective",,"plural",,,,"feminine","accusative",,"ja",,"1./2.","o-/a-stamme",
+9,"et","et","conjunction",,,,,,,,,"nej",,,,
+9,"pulchras","pulcher","adjective",,"plural",,,,"feminine","accusative",,"ja",,"1./2.","o-/a-stamme",
+9,"vident","video","verb","third_person","plural","present","indicative","active",,,,"ja","2.",,"e-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+10,"Claudia","Claudia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Claudia domina villae rusticae est"
+10,"domina","domina","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+10,"villae","villa","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+10,"rusticae","rusticus","adjective",,"singular",,,,"feminine","genitive","positive","ja",,"1./2.","o-/a-stamme",
+10,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+11,"villa","villa","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Villa Claudiae prope Nuceriam sita est"
+11,"Claudiae","Claudia","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+11,"prope","prope","preposition",,,,,,,,,"nej",,,,
+11,"Nuceriam","Nuceria","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+11,"sita ","situs","adjective",,"singular",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+11,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+12,"Ante ","ante","preposition",,,,,,,,,"nej",,,,"Ante villam Claudiae viam latam videmus; post villam piscina bona et vinea
+Ante villam Claudiae viam latam videmus; post villam piscina bona et vinea fecunda sunt"
+12,"villam","villa","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+12,"Claudiae","Claudia","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+12,"viam","via","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+12,"latam","latus","adjective",,"singular",,,,"feminine","accusative",,"ja",,"1./2.","o-/a-stamme",
+12,"videmus;","video","verb","first_person","plural","present","indicative","active",,,,"ja","2.",,"e-stamme",
+12,"post","post","preposition",,,,,,,,,"nej",,,,
+12,"villam","villa","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+12,"piscina","piscina","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+12,"bona","bonus","adjective",,"singular",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+12,"et","et","conjunction",,,,,,,,,"nej",,,,
+12,"vinea","vinea","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+12,"fecunda","fecundus","adjective",,"plural",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+12,"sunt","sum","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+13,"Aqua","aqua","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Aqua piscinae frigida est"
+13,"piscinae","piscina","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+13,"frigida","frigidus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+13,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+14,"Claudia","Claudia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Claudia familiam bonam habet"
+14,"familiam","familia","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+14,"bonam","bonus","adjective",,"singular",,,,"feminine","accusative","positive","ja",,"1./2.","o-/a-stamme",
+14,"habet","habeo","verb","third_person","singular","present","indicative","active",,,,"ja","2.",,"e-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+15,"Sophia","Sophia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Sophia et Hilda sunt ancillae Claudiae"
+15,"et","et","conjunction",,,,,,,,,"nej",,,,
+15,"Hilda","Hilda","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+15,"sunt","sum","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+15,"ancillae","ancilla","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+15,"Claudiae","Claudia","noun",,"singular",,,,"feminine","genitive",,"ja",,"1.","a-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+16,"Hilda","Hilda","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","
+Hilda in Thya nata est"
+16,"in","in","preposition",,,,,,,,,"nej",,,,
+16,"Thyra","Thyra","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+16,"nata","natus","adjective",,"singular",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+16,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+17,"Sophia","Sophia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Sophia est ancilla Graeca"
+17,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+17,"ancilla ","ancilla ","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+17,"Graeca","Graecus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+18,"Hilda","Hilda","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Hilda curiosa est, et Sophia scientiam, magnam habet"
+18,"curiosa","curiosus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+18,"est,","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+18,"et","et","conjunction",,,,,,,,,"nej",,,,
+18,"Sophia","Sophia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+18,"scientiam","scientia","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+18,"magnam","magnus","adjective",,"singular",,,,"feminine","accusative","positive","ja",,"1./2.","o-/a-stamme",
+18,"habet","habeo","verb","third_person","singular","present","indicative","active",,,,"ja","2.",,"e-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+19,"Sophia","Sophia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Sophia propter scientiam linguae Graecae ancilla pretiosa est."
+19,"propter","propter","preposition",,,,,,,,,"nej",,,,
+19,"scientiam","scientia","noun",,"singular",,,,"feminine","accusative",,"ja",,,,
+19," linguae","lingua","noun",,"singular",,,,"feminine","genitive",,"ja",,,,
+19,"Graecae","Graecus","adjective",,"singular",,,,"feminine","genitive","positive","ja",,"1./2.","o-/a-stamme",
+19," ancilla","ancilla","noun",,"singular",,,,"feminine","nominative",,"ja",,,,
+19,"pretiosa ","pretiosus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,,,
+19,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+20,"Claudia","Claudia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Claudia tunica longa vestita est."
+20,"tunica","tunica","noun",,"singular",,,,"feminine","ablative",,"ja",,,,
+20,"longa ","longus","noun",,"singular",,,,"feminine","ablative","positive","ja",,"1./2.","o-/a-stamme",
+20,"vestita","vestio","verb",,"singular",,"participle","passive","feminine","nominative",,"ja",,,,
+20,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+21,"Ancillas","ancilla","noun",,"singular",,,,"feminine","accusative",,"ja",,,,"Ancillas tunicis parvis vestitas videmus."
+21,"tunicis ","tunica","noun",,"plural",,,,"feminine","ablative",,"ja",,,,
+21,"parvis","parvus","adjective",,"plural",,,,"feminine","ablative","positive","ja",,,,
+21,"vestitas","vestio","verb",,"singular",,"participle","passive","feminine","accusative",,"ja",,,,
+21,"videmus","video","verb","first_person","plural","present",,"active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+22,"Feminae ","femina","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Feminae prope telam sedent"
+22,"prope","prope","preposition",,,,,,,,,"nej",,,,
+22,"telam","tela","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+22,"sedent","sedeo","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+23,"Lana","lana","noun",,"singular",,,,"feminine","nominative","positive","ja",,"1.","a-stamme","Lana alba in corbula iacet."
+23,"alba","albus","adjective",,"singular",,,,"feminine","nominative",,"ja",,"1./2.","o-/a-stamme",
+23,"in","in","preposition",,,,,,,,,"nej",,,,
+23,"corbula","corbula","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+23,"iacet","iaceo","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+24,"Claudia","Claudia","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme","Claudia et ancillae lanam novam nent"
+24,"et","et","conjunction",,,,,,,,,"nej",,,,
+24,"ancillae","ancilla","noun",,"plural",,,,"feminine","nominative",,"ja",,,,
+24,"lanam","lana","noun",,"singular",,,,"feminine","accusative",,"ja",,,,
+24,"novam","novus","adjective",,"singular",,,,"feminine","accusative","positive","ja",,,,
+24,"nent","neo","verb","third_person","plural","present","indicative","active",,,,"ja","3.",,"e-stamme",
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+25,"ab","ab","preposition",,,,,,,,,"nej",,,,"Ab hora tertia ad horam sextam industria feminarum magna est"
+25,"hora","hora","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+25,"tertia","tertius","adjective",,"singular",,,,"feminine","ablative","positive","ja",,"1./2.","o-/a-stamme",
+25,"ad","ad","preposition",,,,,,,,,"nej",,,,
+25,"horam","hora","noun",,"singular",,,,"feminine","accusative",,"ja",,,,
+25,"sextam","sextus","adjective",,"singular",,,,"feminine","accusative","positive","ja",,"1./2.","o-/a-stamme",
+25,"industria","industria","noun",,"singular",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+25,"feminarum","femina","noun",,"plural",,,,"feminine","genitive",,"ja",,,,
+25,"magna","magnus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,,,
+25,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+26,"In","in","preposition",,,,,,,,,"nej",,,,"In Campania horae meridianae calidae sunt"
+26,"Campania","Campania","noun",,"singular",,,,"feminine","ablative",,"ja",,"1.","a-stamme",
+26,"horae","hora","noun",,"plural",,,,"feminine","nominative",,"ja",,"1.","a-stamme",
+26,"meridianae","meridianus","adjective",,"plural",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+26,"calidae","calidus","adjective",,"plural",,,,"feminine","nominative","positive","ja",,,,
+26,"sunt","sum","verb","third_person","plural","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+27,"Hora","hora","noun",,"singular",,,,"feminine","nominative",,"ja",,,,"Hora sexta aut septima ad cenam destinata est"
+27,"sexta","sextus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,"1./2.","o-/a-stamme",
+27,"aut","aut","conjunction",,,,,,,,,"nej",,,,
+27,"septima","septimus","adjective",,"singular",,,,"feminine","nominative","positive","ja",,,,
+27,"ad","ad","preposition",,,,,,,,,"nej",,,,
+27,"ceram","cera","noun",,"singular",,,,"feminine","accusative",,"ja",,"1.","a-stamme",
+27,"destinata","destino","verb",,"singular",,"participle","passive","feminine","nominative",,"ja",,,,
+27,"est","sum","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
+"Bibelreference","Ord i teksten","Leksem","Ordklasse","Person","Tal","Tid","Modus","Diatese","Køn","Kasus","Grad","Er ordet bøjeligt?","Konjugation (for verber du ikke tidligere har oplyst)","Deklination (for substativer du ikke tidligere har oplyst)",,"Tekst"
+28,"Hora","hora","noun",,"singular",,,,"feminine","ablative",,"ja",,,,"Hora septima domina et ancillae circum mensam marmoream iacent"
+28,"septima","septimus","adjective",,"singular",,,,"feminine","ablative",,"ja",,"1./2.","o-/a-stamme",
+28,"domina","domina","noun",,"singular",,,,"feminine","nominative",,"ja",,,,
+28,"et","et","conjunction",,,,,,,,,"nej",,,,
+28,"ancillae","ancilla","noun",,"plural",,,,"feminine","nominative",,"ja",,,,
+28,"cirum","cirum","preposition",,,,,,,,,"nej",,,,
+28,"mensam","mensa","noun",,"singular",,,,"feminine","accusative",,"ja",,,,
+28,"marmoream","marmoreus","adjective",,"singular",,,,"feminine","accusative",,"ja",,"1./2.","o-/a-stamme",
+28,"iacent","iaceo","verb","third_person","singular","present","indicative","active",,,,"ja",,,,
