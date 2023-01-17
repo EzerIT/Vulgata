@@ -1,0 +1,213 @@
+\documentclass[11pt,oneside,a4paper,article]{memoir}
+\usepackage{fontspec}
+\usepackage[unicode=true,xetex,colorlinks=true,linkcolor=blue,urlcolor=blue,bookmarksnumbered=true,bookmarksdepth=3]{hyperref}
+\usepackage{bidi} % Must be last
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% How to typeset %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% This file must be run through xelatex
+
+%% The following fonts must be accessible to xelatex on
+%% your system:
+%%
+%% Linux Libertine O
+%%
+%% On Fedora Linux, you can bring in these fonts like
+%% so:
+%%
+%% sudo dnf install linux-libertine-fonts
+%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Configuration %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Fonts %%%
+\setmainfont[Ligatures=TeX]{Linux Libertine O}
+
+\newfontfamily{\mainnolig}{Linux Libertine O}
+\newcommand{\q}{{\mainnolig '}}
+
+
+%%% Page layout %%%
+\settypeblocksize{247mm}{160mm}{*}
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{1}
+\checkandfixthelayout
+
+%%% Hyperref (Information in PDF) %%%
+\hypersetup{
+unicode=true,
+pdfauthor={Claus Tøndering},
+pdftitle={Generating jvulgate and VC}
+}
+
+%%% Lists %%%
+\tightlists
+
+%%% Allow extra space between words %%%
+\sloppy
+
+
+%%% Font matter %%%
+\title{Generating jvulgate and VC}
+\author{Claus Tøndering}
+\date{17 January 2023}
+
+
+\begin{document}
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+
+This document gives a brief introduction to how to generate the jvulgate and VC Emdros databases for Bible
+Online Learner on a Linux computer.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Prerequisites %%%%%%%%%%%%%%%%%%%%
+\chapter{Prerequisites}
+
+In order to execute this process, you need to \emph{recursively} clone the GitHub repository
+\texttt{https://github.com/EzerIT/Vulgata.git}:
+
+\vspace{1ex}
+
+\quad\texttt{git clone --recursive https://github.com/EzerIT/Vulgata}
+
+\vspace{1ex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Generating jvulgate %%%%%%%%%%%%%%%%%%%%
+\chapter{Generating jvulgate}
+
+The ``jvulgate'' Emdros database contains most of the Latin NT in Jerome's Vulgate translation.
+
+Executing the command ``make'' in the top directory generates the jvulgate Emdros database for Bible
+OL.
+
+The steps of the process are detailed in the following sections.
+
+
+\section{Compiling \emph{parse\_latin\_nt}}
+
+The C++ source code for \emph{parse\_latin\_nt} is compiled. A C++ compiler that supports the
+``-std=c++20'' flag is required.
+
+
+\section{Executing \emph{parse\_latin\_nt}}
+
+\noindent \textbf{Inputs:}
+
+\begin{itemize}
+\item \texttt{proiel-treebank/latin-nt.xml}
+\item \texttt{makewordlist/verber (konjugation).csv}
+\item \texttt{makewordlist/Adjektiver (deklination + stamme).csv}
+\item \texttt{makewordlist/substantiver (stamme).csv}
+\end{itemize}
+
+\noindent \textbf{Output:} \texttt{jvulgate.mql}
+
+\vspace{1ex}
+
+\noindent
+The file \texttt{proiel-treebank/latin-nt.xml} contains the text to the New Testament. The
+\texttt{*.csv} spreadsheets contains morphological information about each verb, adjective, and noun.
+The spreadsheets were created by Mikkel Kølkær.
+
+The \emph{parse\_latin\_nt} program uses these files to generate MQL code for the jvulgate database.
+
+\section{Applying \texttt{jvulgate.mql}}
+
+\noindent \textbf{Input:} \texttt{jvulgate.mql}
+
+\noindent \textbf{Output:} The jvulgate Emdros database
+
+\vspace{1ex}
+
+\noindent
+The ``mql'' command is executed and creates the jvulgate Emdros database from the MQL file
+generated in the previous step.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Generating VC %%%%%%%%%%%%%%%%%%%%
+\chapter{Generating VC}
+
+The ``VC'' Emdros database contains chapter one of the beginner's Latin textbook \emph{Villa Claudiae}.
+
+Executing the command ``make'' in the \texttt{villa\_claudiae} directory generates the VC Emdros
+database for Bible OL.
+
+The steps of the process are detailed in the following sections.
+
+
+\section{Compiling \emph{parse\_latin\_vc}}
+
+The C++ source code for \emph{parse\_latin\_vc} is compiled. A C++ compiler that supports the
+``-std=c++20'' flag is required.
+
+
+\section{Executing \emph{parse\_latin\_vc}}
+
+\noindent \textbf{Inputs:}
+
+\begin{itemize}
+\item \texttt{Villa Claudiae.csv}
+\item \texttt{../makewordlist/verber (konjugation).csv}
+\item \texttt{../makewordlist/Adjektiver (deklination + stamme).csv}
+\item \texttt{../makewordlist/substantiver (stamme).csv}
+\end{itemize}
+
+\noindent \textbf{Output:} \texttt{VC.mql}
+
+\vspace{1ex}
+
+\noindent
+The file \texttt{Villa Claudiae.csv} contains the Latin text plus morphological information for
+verbs, adjectives, and nouns not covered by the other .csv files. The
+\texttt{*.csv} spreadsheets contains morphological information about each verb, adjective, and noun.
+All the files were created by Mikkel Kølkær.
+
+The \emph{parse\_latin\_vc} program uses these files to generate MQL code for the jvulgate database.
+
+\section{Applying \texttt{VC.mql}}
+
+\noindent \textbf{Input:} \texttt{VC.mql}
+
+\noindent \textbf{Output:} The VC Emdros database
+
+\vspace{1ex}
+
+\noindent
+The ``mql'' command is executed and creates the VC Emdros database from the MQL file generated in
+the previous step.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Generating Lexicons %%%%%%%%%%%%%%%%%%%%
+\chapter{Generating Lexicons}
+
+There are currently no programs available for generating Latin lexicons.
+
+\end{document}
+
+% Local Variables:
+% mode: latex
+% ispell-dictionary: "british-ize"
+% ispell-extra-args: ("--home-dir=/home/claus/Projects/BibleOL/techdoc")
+% eval: (auto-fill-mode 1)
+% End:

@@ -4,7 +4,7 @@
 OBJFILES=parse_latin_vc.o makemql.o read_inflection.o
 DEPFILES=$(OBJFILES:.o=.d)
 
-CXX=c++-11.1.0
+CXX=c++
 CXXFLAGS=-std=c++20 -MMD -g -I pugixml/src -I ..
 
 
